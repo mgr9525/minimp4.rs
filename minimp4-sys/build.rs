@@ -5,6 +5,8 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
+    println!("cargo:rerun-if-changed=minimp4.h");
+    println!("cargo:rerun-if-changed=minimp4.c");
     cc::Build::new()
         .define("NDEBUG", Some("1"))
         .file("minimp4.c")

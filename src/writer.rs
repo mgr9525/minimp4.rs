@@ -9,6 +9,12 @@ use std::os::raw::c_void;
 
 use super::enc::{Encoder, EncoderParams};
 
+pub fn write_nalu(mp4wr: &mut mp4_h26x_writer_t, fps: i32, data: &[u8]) -> i32 {
+    let data_size = data.len();
+    let data_ptr = data.as_ptr();
+    unsafe { mp4_h26x_write_nal(mp4wr, data_ptr, data_size as i32, (90000 / fps) as u32) }
+}
+
 fn get_nal_size(buf: &mut [u8], size: usize) -> usize {
     let mut pos = 3;
     while size - pos > 3 {
